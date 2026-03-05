@@ -29,7 +29,7 @@ export default function GallerySection() {
                                 borderRadius: 'var(--radius-md)',
                                 overflow: 'hidden',
                                 position: 'relative',
-                                aspectRatio: i === 0 || i === 5 ? '1/1.2' : '1/1',
+                                aspectRatio: '1/1',
                                 cursor: 'pointer',
                                 border: '1px solid rgba(200,134,10,0.1)',
                             }}
@@ -45,14 +45,11 @@ export default function GallerySection() {
                                 className="gallery-overlay"
                                 style={{
                                     position: 'absolute', inset: 0,
-                                    background: 'linear-gradient(0deg, rgba(26,15,10,0.85) 0%, transparent 60%)',
+                                    background: 'rgba(26,15,10,0.25)',
                                     opacity: 0,
                                     transition: 'opacity 0.3s ease',
-                                    display: 'flex', alignItems: 'flex-end', padding: '1rem',
                                 }}
-                            >
-                                <span style={{ color: 'var(--cream)', fontSize: '0.875rem', fontWeight: 500 }}>{img.alt}</span>
-                            </div>
+                            />
                         </div>
                     ))}
                 </div>
