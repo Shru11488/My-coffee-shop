@@ -8,8 +8,8 @@ export default function HomePage() {
     <>
       <HeroSection />
       <AboutSection />
-      <TestimonialsSection />
       <GallerySection />
+      <TestimonialsSection />
     </>
   );
 }
