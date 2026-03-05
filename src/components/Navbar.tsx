@@ -16,10 +16,14 @@ const navLinks = [
 
 function isActive(pathname: string, hash: string, href: string): boolean {
     if (href.includes('#')) {
+        // Hash-based link: must match both path and hash
         const [hrefPath, hrefHash] = href.split('#');
         return pathname === (hrefPath || '/') && hash === `#${hrefHash}`;
     }
-    // For plain paths, only match exactly (so '/' doesn't stay active on '/menu')
+    if (href === '/') {
+        // Home is only active when on '/' with NO hash active
+        return pathname === '/' && !hash;
+    }
     return pathname === href;
 }
 
@@ -37,12 +41,21 @@ export default function Navbar() {
     }, []);
 
     useEffect(() => {
-        // Sync hash on mount and whenever it changes
-        setHash(window.location.hash);
-        const onHashChange = () => setHash(window.location.hash);
-        window.addEventListener('hashchange', onHashChange);
-        return () => window.removeEventListener('hashchange', onHashChange);
+        // Sync hash on mount, hashchange, and popstate (Next.js router)
+        const updateHash = () => setHash(window.location.hash);
+        updateHash();
+        window.addEventListener('hashchange', updateHash);
+        window.addEventListener('popstate', updateHash);
+        return () => {
+            window.removeEventListener('hashchange', updateHash);
+            window.removeEventListener('popstate', updateHash);
+        };
     }, []);
+
+    // Also re-sync hash whenever Next.js pathname changes (cross-page navigation)
+    useEffect(() => {
+        setHash(window.location.hash);
+    }, [pathname]);
 
     return (
         <header
