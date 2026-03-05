@@ -8,6 +8,7 @@ import { selectCartCount } from '@/store/cartSlice';
 
 const navLinks = [
     { label: 'Home', href: '/' },
+    { label: 'About', href: '/#about' },
     { label: 'Menu', href: '/#menu' },
     { label: 'Gallery', href: '/#gallery' },
     { label: 'Testimonials', href: '/#testimonials' },
