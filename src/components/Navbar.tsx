@@ -14,16 +14,34 @@ const navLinks = [
     { label: 'Contact', href: '/contact' },
 ];
 
+function isActive(pathname: string, hash: string, href: string): boolean {
+    if (href.includes('#')) {
+        const [hrefPath, hrefHash] = href.split('#');
+        return pathname === (hrefPath || '/') && hash === `#${hrefHash}`;
+    }
+    // For plain paths, only match exactly (so '/' doesn't stay active on '/menu')
+    return pathname === href;
+}
+
 export default function Navbar() {
     const pathname = usePathname();
     const cartCount = useAppSelector(selectCartCount);
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [hash, setHash] = useState('');
 
     useEffect(() => {
         const onScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    useEffect(() => {
+        // Sync hash on mount and whenever it changes
+        setHash(window.location.hash);
+        const onHashChange = () => setHash(window.location.hash);
+        window.addEventListener('hashchange', onHashChange);
+        return () => window.removeEventListener('hashchange', onHashChange);
     }, []);
 
     return (
@@ -69,10 +87,10 @@ export default function Navbar() {
                             style={{
                                 fontSize: '0.9rem',
                                 fontWeight: 500,
-                                color: pathname === link.href ? 'var(--amber)' : 'var(--cream)',
+                                color: isActive(pathname, hash, link.href) ? 'var(--amber)' : 'var(--cream)',
                                 transition: 'color 0.2s',
                                 paddingBottom: '2px',
-                                borderBottom: pathname === link.href ? '2px solid var(--amber)' : '2px solid transparent',
+                                borderBottom: isActive(pathname, hash, link.href) ? '2px solid var(--amber)' : '2px solid transparent',
                             }}
                         >
                             {link.label}
@@ -111,7 +129,7 @@ export default function Navbar() {
                             style={{
                                 display: 'block',
                                 padding: '0.75rem 1.5rem',
-                                color: pathname === link.href ? 'var(--amber)' : 'var(--cream)',
+                                color: isActive(pathname, hash, link.href) ? 'var(--amber)' : 'var(--cream)',
                                 fontWeight: 500,
                                 fontSize: '1rem',
                             }}
