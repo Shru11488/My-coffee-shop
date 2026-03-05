@@ -8,10 +8,10 @@ import { selectCartCount } from '@/store/cartSlice';
 
 const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Menu', href: '/menu' },
+    { label: 'Menu', href: '/#menu' },
     { label: 'Gallery', href: '/#gallery' },
     { label: 'Testimonials', href: '/#testimonials' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Contact', href: '/#contact' },
 ];
 
 function isActive(pathname: string, hash: string, href: string): boolean {

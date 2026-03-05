@@ -15,7 +15,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        <section id="home" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
             {/* Background */}
             <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
                 <Image src="/images/about-image.jpg" alt="Coffee Background" fill style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
@@ -61,11 +61,11 @@ export default function HeroSection() {
                     </p>
 
                     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                        <Link href="/menu" className="btn btn-primary" style={{ fontSize: '1rem' }}>
+                        <Link href="/#menu" className="btn btn-primary" style={{ fontSize: '1rem' }}>
                             <ShoppingBag size={18} />
                             Order Now
                         </Link>
-                        <Link href="/contact" className="btn btn-outline" style={{ fontSize: '1rem' }}>
+                        <Link href="/#contact" className="btn btn-outline" style={{ fontSize: '1rem' }}>
                             <Phone size={18} />
                             Contact Us
                         </Link>
